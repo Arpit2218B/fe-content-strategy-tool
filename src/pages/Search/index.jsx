@@ -2,8 +2,11 @@ import ProfileIcon from 'components/ProfileIcon';
 import styles from './styles.module.scss';
 import { CloseCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import Select from 'components/Select';
+import { useState } from 'react';
 
 const Search = () => {
+  const [platformType, setPlatFormType] = useState();
+
   return (
     <div className={styles.container}>
       <div className={styles.topSection}>
@@ -17,7 +20,11 @@ const Search = () => {
             <CloseCircleOutlined style={{ cursor: 'pointer' }} />
           </div>
           <div className={styles.select}>
-            <Select options={[{value: 'reels', label: 'REELS'}, {value: 'tiktok', label: 'TIKTOK'}]} />
+            <Select 
+              options={[{value: 'reels', label: 'REELS'}, {value: 'tiktok', label: 'TIKTOK'}]} 
+              onChange={setPlatFormType} 
+              defaultValue={{value: 'reels', label: 'REELS'}}
+            />
           </div>
         </div>
         <div className={styles.recentSearch}>

@@ -2,17 +2,22 @@ import { useState } from 'react';
 import styles from './styles.module.scss';
 import { CaretDownFilled, CheckOutlined } from '@ant-design/icons';
 
-const Select = ({ options=[] }) => {
-  const [selectedOption, setSelectedOption] = useState({});
+const Select = ({ options=[], onChange, defaultValue }) => {
+  const [selectedOption, setSelectedOption] = useState(defaultValue || {});
   const [optionsVisiblity, toggleOptionsVisibility] = useState(false);
 
   const handleSelect = (option) => {
-    setSelectedOption(option)
     toggleOptionsVisibility(false);
+    if (selectedOption.value == option.value)
+    {
+      return;
+    }
+    setSelectedOption(option)
+    onChange && onChange(option);
   }
   
   return (
-    <div className={styles.container}>
+    <div className={styles.container} role="button">
       <div className={styles.selected} onClick={() => toggleOptionsVisibility(!optionsVisiblity)}>
         {selectedOption.label || 'Select a type'}
         <CaretDownFilled />  
