@@ -1,0 +1,28 @@
+.container {
+  height: 100vh;
+  .header {
+    height: 60px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+
+    .navigate {}
+
+    .logo {}
+
+    .profile {}
+  }
+  .mainContainer {
+    height: calc(100vh - 60px);
+    .main {
+      height: 100%;
+      // max-width: 1200px;
+    }
+  }
+
+  .footer {
+    display: none;
+  }
+}

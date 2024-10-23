@@ -1,0 +1,36 @@
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  width: fit-content;
+
+  &:hover {
+
+    .profileImage {
+      outline: 2px solid rgba(62,9,121,1);
+    }
+
+    .userName {
+      font-weight: 600;
+    }
+  }
+
+  .profileImage {
+    border-radius: 50%;
+    height: 80px;
+    aspect-ratio: 1;
+    overflow: hidden;
+    
+    img {
+      object-fit: cover;
+      height: 100%;
+    }
+  }
+
+  .userName {
+    font-size: 0.85rem;
+  }
+}
