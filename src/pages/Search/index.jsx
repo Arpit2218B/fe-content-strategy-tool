@@ -33,6 +33,10 @@ const Search = () => {
           <ProfileIcon />
           <ProfileIcon />
           <ProfileIcon />
+          <ProfileIcon />
+          <ProfileIcon />
+          <ProfileIcon />
+          <ProfileIcon />
         </div>
       </div>
     </div>
