@@ -1,0 +1,91 @@
+.reels {
+  border: 1px solid #3bc9db;
+  border-radius: 8px;
+  background-color: #99e9f2;
+  font-size: 250%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 9/16;
+  overflow: hidden;
+  position: relative;
+
+  video {
+    width: 100%;
+    aspect-ratio: 9/16;
+    object-fit: cover;
+  }
+
+  .stats {
+    position: absolute;
+    right: 1rem;
+    top: 2rem;
+    padding: 1.8rem 0.5rem;
+    background-color: #8C8C8C;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+
+    .stat {
+      font-size: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+  
+  .save {
+    display: none;
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.7rem 1.6rem;
+    border-radius: 1.5rem;
+    border: none;
+    outline: 2px solid #c94b4b;
+    outline-offset: 2px;
+    color: white;
+    background-color: #c94b4b;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 3px;
+    cursor: pointer;
+
+    &:hover {
+      outline: 4px solid #c94b4b;
+      outline-offset: 1.5px;
+    }
+  }
+
+  .play {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    font-size: 4rem;
+    color: whitesmoke;
+
+    &:hover {
+      font-size: 4.5rem;
+    }
+  }
+
+  &:hover {
+    .save,
+    .play {
+      display: block;
+    }
+  }
+}
+
+.reels:nth-child(2n) {
+  // aspect-ratio: 9/14;
+}
