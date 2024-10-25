@@ -10,7 +10,7 @@ const Results = () => {
       <div className={styles.profileData}>
         <div className={styles.profile}>
           <span className={styles.profileImage}>
-            <img src="public/profile.jpg" />
+            <img src="https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg" />
           </span>
           <span className={styles.name}>Rastum Specisa</span>
           <span className={styles.userName}>@rastum</span>
