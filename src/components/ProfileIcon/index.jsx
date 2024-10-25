@@ -1,8 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 
 const ProfileIcon = ({ url, name }) => {
+  const navigate = useNavigate();
+
+  const handleOnClick = () => {
+    navigate('/results');
+  }
+
   return (
-    <div className={styles.result}>
+    <div className={styles.result} onClick={handleOnClick}>
       <span className={styles.profileImage}>
         <img src="src/assets/profile.jpg" />
       </span>

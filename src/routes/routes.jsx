@@ -8,7 +8,7 @@ const Bookmarks = React.lazy(() => import("pages/Bookmarks"));
 
 const routes = [
     { 
-      path: PathConstants.SEARCH,
+      path: PathConstants.BASE,
       element: <Search /> 
     },
     { 

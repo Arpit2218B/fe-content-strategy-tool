@@ -8,7 +8,12 @@
     align-items: center;
     padding: 0 1.5rem;
 
-    .navigate {}
+    .navigate {
+      a {
+        text-decoration: none;
+        color: black;
+      }
+    }
 
     .logo {}
 
