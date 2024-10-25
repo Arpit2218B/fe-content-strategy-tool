@@ -2,6 +2,7 @@ import styles from './styles.module.scss';
 import Statistic from './components/Statistic';
 import Select from 'components/Select';
 import MasonryGrid from 'components/MasonryGrid';
+import CalendarWrapper from 'components/Calendar';
 
 const Results = () => {
   return (
@@ -32,10 +33,7 @@ const Results = () => {
             />
           </div>
           <div className={styles.calendar}>
-            <Select 
-              options={[{value: 'reels', label: 'REELS'}, {value: 'tiktok', label: 'TIKTOK'}]} 
-              defaultValue={{value: 'reels', label: 'REELS'}}
-            />
+            <CalendarWrapper />
           </div>
         </div>
         <div className={styles.posts}>
