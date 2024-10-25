@@ -11,7 +11,7 @@ const ProfileIcon = ({ url, name }) => {
   return (
     <div className={styles.result} onClick={handleOnClick}>
       <span className={styles.profileImage}>
-        <img src="src/assets/profile.jpg" />
+        <img src="public/profile.jpg" />
       </span>
       <span className={styles.userName}>@rastum</span>
     </div>

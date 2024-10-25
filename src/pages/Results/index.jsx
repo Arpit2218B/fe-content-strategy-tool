@@ -10,7 +10,7 @@ const Results = () => {
       <div className={styles.profileData}>
         <div className={styles.profile}>
           <span className={styles.profileImage}>
-            <img src="src/assets/profile.jpg" />
+            <img src="public/profile.jpg" />
           </span>
           <span className={styles.name}>Rastum Specisa</span>
           <span className={styles.userName}>@rastum</span>
