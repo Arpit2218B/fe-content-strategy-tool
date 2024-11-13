@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './styles.module.scss';
-import { CaretDownFilled, CheckOutlined } from '@ant-design/icons';
+import { DownOutlined, CheckOutlined } from '@ant-design/icons';
 
 const Select = ({ options=[], onChange, defaultValue }) => {
   const [selectedOption, setSelectedOption] = useState(defaultValue || {});
@@ -20,7 +20,7 @@ const Select = ({ options=[], onChange, defaultValue }) => {
     <div className={styles.container} role="button">
       <div className={styles.selected} onClick={() => toggleOptionsVisibility(!optionsVisiblity)}>
         {selectedOption.label || 'Select a type'}
-        <CaretDownFilled />  
+        <DownOutlined />  
       </div>
       {
         optionsVisiblity && (
