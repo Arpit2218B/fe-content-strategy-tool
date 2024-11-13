@@ -1,14 +1,36 @@
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import styles from './styles.module.scss';
 import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/clerk-react";
 import Authentication from "pages/Authentication";
+import { usePostQueryHook } from "hooks/restApiHooks/usePostQuery";
 import Loader from "../Loader";
+import Payment from "../Payment";
+import styles from './styles.module.scss';
 
 const Layout = () => {
-    const { isSignedIn } = useUser();
+    const { isSignedIn, isLoaded, user } = useUser();
     const { pathname } = useLocation();
     const isSearchPage = pathname === '/';
+
+    const { 
+        postData: getUserData,
+        data: userData,
+        loading: userDataLoading,
+    } = usePostQueryHook('/user/authenticate');
+
+    useEffect(() => {
+        if (isLoaded && user) {
+            const userDataFromClerk = {
+                id: user?.id,
+                data: {
+                    fullName: user?.fullName,
+                    userName: user?.username,
+                    email: user?.emailAddresses?.[0]?.emailAddress,
+                }
+            }
+            getUserData({}, userDataFromClerk)
+        }
+    }, [isSignedIn]);
 
     return (
         <div className={styles.container}>
@@ -29,9 +51,19 @@ const Layout = () => {
             <main className={styles.mainContainer}>
                 <div className={styles.main}>
                     <SignedIn>
-                        <Suspense fallback={<Loader />}>
-                            <Outlet />
-                        </Suspense>
+                        {
+                            (!isLoaded || userDataLoading) && <Loader />
+                        }
+                        {
+                            (isLoaded && !userDataLoading) && (
+                                <Suspense fallback={<Loader />}>
+                                    <>
+                                        <Outlet />
+                                        {userData?.data?.subscription?.subscribed && <Payment getUserData={getUserData} user={user} />}
+                                    </>
+                                </Suspense>
+                            )
+                        }
                     </SignedIn>
                     <SignedOut>
                         <Authentication />

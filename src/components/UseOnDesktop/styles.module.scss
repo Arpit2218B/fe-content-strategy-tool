@@ -1,0 +1,23 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background-color: rgba(55, 56, 59, 0.7);
+
+  .desktop {
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+}
