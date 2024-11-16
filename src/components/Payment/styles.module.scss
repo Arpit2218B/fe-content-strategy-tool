@@ -29,6 +29,11 @@
       font-size: 1rem;
       letter-spacing: 1px;
       cursor: pointer;
+
+      &:disabled {
+        background-color: #473956;
+        cursor: not-allowed;
+      }
     }
   }
 }

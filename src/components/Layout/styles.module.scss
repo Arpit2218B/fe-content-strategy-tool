@@ -17,7 +17,20 @@
 
     .logo {}
 
-    .profile {}
+    .profile {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1rem;
+
+      .freeTrial {
+        font-size: 0.6rem;
+        background-color: gold;
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        font-weight: 600;
+      }
+    }
   }
   .mainContainer {
     height: calc(100vh - 60px);

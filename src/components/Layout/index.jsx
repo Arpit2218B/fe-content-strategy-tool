@@ -6,6 +6,7 @@ import { usePostQueryHook } from "hooks/restApiHooks/usePostQuery";
 import Loader from "../Loader";
 import Payment from "../Payment";
 import styles from './styles.module.scss';
+import { trialPeriod } from "@/utils/businessUtils";
 
 const Layout = () => {
     const { isSignedIn, isLoaded, user } = useUser();
@@ -32,6 +33,8 @@ const Layout = () => {
         }
     }, [isSignedIn]);
 
+    const { isTrialPeriod, daysLeft } = trialPeriod(userData?.data?.data?.freeTrialStartDate);
+    
     return (
         <div className={styles.container}>
             <header className={styles.header}>
@@ -43,6 +46,7 @@ const Layout = () => {
                     <span>Curate</span>
                 </div>
                 <div className={styles.profile}>
+                    {isSignedIn && isTrialPeriod && !userData?.data?.subscription?.subscriptionId && <span className={styles.freeTrial}>Free Trial expires in {daysLeft} days</span>}
                     <span>
                         <UserButton />
                     </span>
@@ -59,7 +63,7 @@ const Layout = () => {
                                 <Suspense fallback={<Loader />}>
                                     <>
                                         <Outlet />
-                                        {userData?.data?.subscription?.subscribed && <Payment getUserData={getUserData} user={user} />}
+                                        {!userData?.data?.isSubscribed && <Payment getUserData={getUserData} user={user} />}
                                     </>
                                 </Suspense>
                             )
