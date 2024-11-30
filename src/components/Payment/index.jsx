@@ -1,11 +1,12 @@
 import useRazorpaySubscription from 'hooks/useRazorpaySubscription';
 import styles from './styles.module.scss';
 import { CheckCircleOutlined } from '@ant-design/icons';
+import { config } from '@/utils/config';
 
 const Payment = ({ user, getUserData }) => {
   const [error, loading, success, createOrder] = useRazorpaySubscription({
-    orderURL: 'http://localhost:2101/user/subscription/subscribe',
-    verifyURL: 'http://localhost:2101/user/subscription/success',
+    orderURL: `${config.API_BASE_URL}user/subscription/subscribe`,
+    verifyURL: `${config.API_BASE_URL}user/subscription/success`,
     key: 'rzp_test_lo1yGxMSOwwntZ',
     user: {
       id: user?.id,
