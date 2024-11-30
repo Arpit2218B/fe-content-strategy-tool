@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import styles from './styles.module.scss';
 import { DownOutlined, CheckOutlined } from '@ant-design/icons';
