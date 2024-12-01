@@ -9,9 +9,18 @@
     padding: 0 1.5rem;
 
     .navigate {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1rem;
       a {
         text-decoration: none;
         color: black;
+        font-size: 0.9rem;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
@@ -25,10 +34,18 @@
 
       .freeTrial {
         font-size: 0.6rem;
-        background-color: gold;
-        padding: 0.5rem 1rem;
-        border-radius: 1rem;
         font-weight: 600;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.6rem;
+        
+        .cta {
+          background-color: gold;
+          border-radius: 1rem;
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+        }
       }
     }
   }

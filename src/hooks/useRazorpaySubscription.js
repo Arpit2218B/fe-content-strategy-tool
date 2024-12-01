@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from 'axios';
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { SET_SUBSCRIPTION_DATA, SET_SUBSCRIPTION_STEP } from "@/store/constants";
+import { SUBSCRIPTION_STEP } from "@/utils/constants";
 
 const loadScript = (src) => {
     return new Promise((resolve) => {
@@ -22,6 +25,7 @@ const useRazorpaySubscription = (t) => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const dispatch = useDispatch();
 
     const createOrder = async () => {
         setLoading(true);
@@ -57,8 +61,22 @@ const useRazorpaySubscription = (t) => {
                 const result = await axios.post(subscriptionConfig.verifyURL, data);
                 if(result.status !== 201) {
                     setError('Could not verify transaction');
+                    dispatch({
+                        type: SET_SUBSCRIPTION_STEP,
+                        payload: SUBSCRIPTION_STEP.PAYMENT_FAILURE,
+                    });
                     return;
                 }
+                dispatch({
+                    type: SET_SUBSCRIPTION_STEP,
+                    payload: SUBSCRIPTION_STEP.PAYMENT_SUCCESS,
+                });
+                dispatch({
+                    type: SET_SUBSCRIPTION_DATA,
+                    payload: {
+                        isSubscribed: true,
+                    },
+                });
                 toast('Payment done successfully');
                 setSuccess(true);
             }
