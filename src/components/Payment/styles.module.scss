@@ -19,6 +19,16 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    position: relative;
+
+    .closeButton {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      cursor: pointer;
+      font-size: 2rem;
+      color: #2F065F;
+    }
 
     button {
       color: white;

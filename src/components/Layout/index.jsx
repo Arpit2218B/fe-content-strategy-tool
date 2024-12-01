@@ -1,23 +1,48 @@
 import { Suspense, useEffect } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
-import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/clerk-react";
+import { Outlet } from "react-router-dom";
+import { SignedIn, SignedOut, useUser } from "@clerk/clerk-react";
+
 import Authentication from "pages/Authentication";
+import { trialPeriod } from "utils/businessUtils";
 import { usePostQueryHook } from "hooks/restApiHooks/usePostQuery";
+
 import Loader from "../Loader";
 import Payment from "../Payment";
+import Header from "./Header";
+
 import styles from './styles.module.scss';
-import { trialPeriod } from "@/utils/businessUtils";
+import { useDispatch } from "react-redux";
+import { SET_SUBSCRIPTION_DATA, SET_SUBSCRIPTION_STEP } from "@/store/constants";
+import { SUBSCRIPTION_STEP } from "@/utils/constants";
 
 const Layout = () => {
     const { isSignedIn, isLoaded, user } = useUser();
-    const { pathname } = useLocation();
-    const isSearchPage = pathname === '/';
-
+    const dispatch = useDispatch();
     const { 
         postData: getUserData,
-        data: userData,
         loading: userDataLoading,
-    } = usePostQueryHook('/user/authenticate');
+    } = usePostQueryHook('/user/authenticate', {
+        onSuccess: (response) => {
+            const userDataResponse = response?.data;
+            const { isTrialPeriod, daysLeft } = trialPeriod(userDataResponse?.data?.freeTrialStartDate);
+            const isSubscribed = userDataResponse?.isSubscribed;
+            dispatch({
+                type: SET_SUBSCRIPTION_DATA,
+                payload: {
+                    isSubscribed: isSubscribed,
+                    freeTrial: {
+                        daysLeft: daysLeft,
+                        active: isTrialPeriod,
+                    }
+                }
+            });
+            if (!isSubscribed && !isTrialPeriod)
+                dispatch({
+                    type: SET_SUBSCRIPTION_STEP,
+                    payload: SUBSCRIPTION_STEP.NO_ACTIVE_SUBSCRIPTION,
+                });
+        }
+    });
 
     useEffect(() => {
         if (isLoaded && user) {
@@ -33,37 +58,23 @@ const Layout = () => {
         }
     }, [isSignedIn]);
 
-    const { isTrialPeriod, daysLeft } = trialPeriod(userData?.data?.data?.freeTrialStartDate);
+    const pageLoading = !isLoaded || userDataLoading;
     
     return (
         <div className={styles.container}>
-            <header className={styles.header}>
-                <div className={styles.navigate}>
-                    {isSignedIn && isSearchPage && <Link to="/bookmarks">Bookmarks</Link>}
-                    {isSignedIn && !isSearchPage && <Link to="/">Search</Link>}
-                </div>
-                <div className={styles.logo}>
-                    <span>Curate</span>
-                </div>
-                <div className={styles.profile}>
-                    {isSignedIn && isTrialPeriod && !userData?.data?.subscription?.subscriptionId && <span className={styles.freeTrial}>Free Trial expires in {daysLeft} days</span>}
-                    <span>
-                        <UserButton />
-                    </span>
-                </div>
-            </header>
+            <Header isSignedIn={isSignedIn} />
             <main className={styles.mainContainer}>
                 <div className={styles.main}>
                     <SignedIn>
                         {
-                            (!isLoaded || userDataLoading) && <Loader />
+                            pageLoading && <Loader />
                         }
                         {
-                            (isLoaded && !userDataLoading) && (
+                            !pageLoading && (
                                 <Suspense fallback={<Loader />}>
                                     <>
                                         <Outlet />
-                                        {!userData?.data?.isSubscribed && <Payment getUserData={getUserData} user={user} />}
+                                        <Payment getUserData={getUserData} user={user} />
                                     </>
                                 </Suspense>
                             )
@@ -72,11 +83,11 @@ const Layout = () => {
                     <SignedOut>
                         <Authentication />
                     </SignedOut>
-                </div>                
-                <div className={styles.footer}>
-                    Curate @ 2024    |    All Rights Reserved
                 </div>
             </main>
+            <footer className={styles.footer}>
+                Curate @ 2024    |    All Rights Reserved
+            </footer>
         </div>
     )
 }
