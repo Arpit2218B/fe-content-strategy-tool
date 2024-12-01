@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import { SET_SUBSCRIPTION_STEP } from "@/store/constants";
 import { SUBSCRIPTION_STEP } from "@/utils/constants";
 
-const Header = ({ isSignedIn }) => {
+const Header = ({ isSignedIn, pageLoading }) => {
   const { freeTrial, isSubscribed } = useSelector(state => state?.subscription);
   const dispatch = useDispatch();
 
@@ -30,7 +30,7 @@ const Header = ({ isSignedIn }) => {
       {isSignedIn && (
         <div className={styles.profile}>
           {
-            !isSubscribed && (
+            !isSubscribed && !pageLoading && (
               <span className={styles.freeTrial}>
                 {freeTrial?.active && <span>Free Trial expires in {freeTrial?.daysLeft} days</span>}
                 {!freeTrial?.active && <span>No active subscription</span>}

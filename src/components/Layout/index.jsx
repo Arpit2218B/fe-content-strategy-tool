@@ -62,7 +62,7 @@ const Layout = () => {
     
     return (
         <div className={styles.container}>
-            <Header isSignedIn={isSignedIn} />
+            <Header isSignedIn={isSignedIn} pageLoading={pageLoading} />
             <main className={styles.mainContainer}>
                 <div className={styles.main}>
                     <SignedIn>
