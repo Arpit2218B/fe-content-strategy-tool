@@ -13,3 +13,16 @@ export const trialPeriod = (dateToCheck) => {
     daysLeft,
   }
 }
+
+export const formatNumber = (num=0) => {
+  if (num >= 1_000_000) {
+    // Convert to millions and show one decimal place only if the number is below 100
+    return (num / 1_000_000 < 100 ? (num / 1_000_000).toFixed(1) : Math.round(num / 1_000_000)) + 'M';
+  } else if (num >= 1_000) {
+    // Convert to thousands and show one decimal place only if the number is below 100
+    return (num / 1_000 < 100 ? (num / 1_000).toFixed(1) : Math.round(num / 1_000)) + 'K';
+  } else {
+    // No conversion needed, just return the number
+    return num.toString();
+  }
+};

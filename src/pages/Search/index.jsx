@@ -3,9 +3,25 @@ import styles from './styles.module.scss';
 import { CloseCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import Select from 'components/Select';
 import { useState } from 'react';
+import useGetQueryHook from '@/hooks/restApiHooks/useGetQuery';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
-  const [platformType, setPlatFormType] = useState();
+  const navigate = useNavigate();
+  const [platformType, setPlatFormType] = useState('REELS');
+  const [searchString, setSearchString] = useState('');
+  const { recentSearches } = useSelector(state => state.user);
+
+  const onChange = (e) => {
+    setSearchString(e.target.value);
+  }
+
+  const search = (e) => {
+    if (e.key == 'Enter') {
+      navigate(`/results?type=${platformType}&query=${searchString}`)
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -16,8 +32,8 @@ const Search = () => {
         <div className={styles.searchBar}>
           <div className={styles.input}>
             <SearchOutlined />
-            <input placeholder='Search a profile'></input>
-            <CloseCircleOutlined style={{ cursor: 'pointer' }} />
+            <input placeholder='Search a profile' onKeyDown={(e) => search(e)} onChange={onChange} value={searchString}></input>
+            <CloseCircleOutlined style={{ cursor: 'pointer' }} onClick={() => setSearchString('')} />
           </div>
           <div className={styles.select}>
             <Select 
@@ -28,15 +44,11 @@ const Search = () => {
           </div>
         </div>
         <div className={styles.recentSearch}>
-          <ProfileIcon />
-          <ProfileIcon />
-          <ProfileIcon />
-          <ProfileIcon />
-          <ProfileIcon />
-          <ProfileIcon />
-          <ProfileIcon />
-          <ProfileIcon />
-          <ProfileIcon />
+          {
+            recentSearches?.map(r => (
+              <ProfileIcon key={r?._id} data={r} />
+            ))
+          }
         </div>
       </div>
     </div>

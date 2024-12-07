@@ -12,7 +12,7 @@ import Header from "./Header";
 
 import styles from './styles.module.scss';
 import { useDispatch } from "react-redux";
-import { SET_SUBSCRIPTION_DATA, SET_SUBSCRIPTION_STEP } from "@/store/constants";
+import { SET_SUBSCRIPTION_DATA, SET_SUBSCRIPTION_STEP, SET_USER_DATA } from "@/store/constants";
 import { SUBSCRIPTION_STEP } from "@/utils/constants";
 
 const Layout = () => {
@@ -35,6 +35,10 @@ const Layout = () => {
                         active: isTrialPeriod,
                     }
                 }
+            });
+            dispatch({
+                type: SET_USER_DATA,
+                payload: userDataResponse,
             });
             if (!isSubscribed && !isTrialPeriod)
                 dispatch({
