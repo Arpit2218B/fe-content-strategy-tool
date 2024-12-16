@@ -3,9 +3,10 @@ import { DownOutlined } from '@ant-design/icons';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import styles from './styles.module.scss';
+import moment from 'moment';
 
 const CalendarWrapper = ({ options={}, onChange }) => {
-  const [value, setValue] = useState([new Date(), new Date()]);
+  const [value, setValue] = useState([moment().subtract(90, 'd').toDate(), moment().toDate()]);
   const [calendarVissibility, toggleCalendarVisibility] = useState(false);
 
   const handleSelect = (value) => {
