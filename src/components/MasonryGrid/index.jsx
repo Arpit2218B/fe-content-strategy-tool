@@ -1,26 +1,14 @@
 import Reel from '../Reel';
 import styles from './styles.module.scss';
 
-const MasonryGrid = () => {
+const MasonryGrid = ({ data }) => {
   return (
     <div className={styles.grid}>
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
-      <Reel />
+      {
+        data?.map(d => (
+          <Reel reel={d} />
+        ))
+      }
     </div>
   )
 }

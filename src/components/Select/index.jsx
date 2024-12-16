@@ -3,8 +3,8 @@ import { useState } from 'react';
 import styles from './styles.module.scss';
 import { DownOutlined, CheckOutlined } from '@ant-design/icons';
 
-const Select = ({ options=[], onChange, defaultValue }) => {
-  const [selectedOption, setSelectedOption] = useState(defaultValue || {});
+const Select = ({ options=[], onChange, value, placeholder }) => {
+  const [selectedOption, setSelectedOption] = useState(value || {});
   const [optionsVisiblity, toggleOptionsVisibility] = useState(false);
 
   const handleSelect = (option) => {
@@ -20,7 +20,7 @@ const Select = ({ options=[], onChange, defaultValue }) => {
   return (
     <div className={styles.container} role="button">
       <div className={styles.selected} onClick={() => toggleOptionsVisibility(!optionsVisiblity)}>
-        {selectedOption.label || 'Select a type'}
+        {selectedOption.label || placeholder || 'Select a type'}
         <DownOutlined />  
       </div>
       {

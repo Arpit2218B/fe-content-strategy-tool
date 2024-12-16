@@ -1,0 +1,19 @@
+.container {
+  min-width: fit-content;
+  .button {
+    color: white;
+    background-color: #2F065F;
+    padding: 1rem 8rem;
+    margin-top: 2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+  
+    &:disabled {
+      background-color: #755e8f;
+      cursor: not-allowed;
+      opacity: 0.9;
+    }
+  }
+}

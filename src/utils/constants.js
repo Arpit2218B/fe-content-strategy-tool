@@ -6,3 +6,22 @@ export const SUBSCRIPTION_STEP = {
   MANUAL_PAYMENT: 'MANUAL_PAYMENT',
   CLOSED: 'CLOSED',
 };
+
+export const SORTER = [
+  {
+    label: 'VIEWS',
+    value: 'viewCount',
+  },
+  {
+    label: 'LIKES',
+    value: 'likeCount',
+  },
+  {
+    label: 'PLAYS',
+    value: 'playCount',
+  },
+  {
+    label: 'COMMENTS',
+    value: 'commentCount',
+  },
+]

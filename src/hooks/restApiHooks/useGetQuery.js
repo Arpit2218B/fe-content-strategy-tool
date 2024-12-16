@@ -40,7 +40,7 @@ export const useGetQueryHook = (
             typeof onSuccess === 'function' && onSuccess();
         } catch(err) {
             if(typeof onError === 'function')
-                onError();
+                onError(err);
             else {
               console.log('Error');
             }

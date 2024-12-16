@@ -1,7 +1,8 @@
-import { SET_SUBSCRIPTION_DATA, SET_SUBSCRIPTION_STEP } from "./constants";
+import { SET_SUBSCRIPTION_DATA, SET_SUBSCRIPTION_STEP, SET_USER_DATA } from "./constants";
 import { SUBSCRIPTION_STEP } from "@/utils/constants";
 
 const initialState = {
+  user: {},
   subscription: {
     isSubscribed: false,
     freeTrial: {
@@ -31,6 +32,11 @@ export const reducer = (state=initialState, action) => {
           ...state?.subscription,
           step: action?.payload,
         },
+      }
+    case SET_USER_DATA:
+      return {
+        ...state,
+        user: action.payload,
       }
     default:
       return state;

@@ -1,19 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 
-const ProfileIcon = ({ url, name }) => {
+const ProfileIcon = ({ data }) => {
   const navigate = useNavigate();
 
   const handleOnClick = () => {
-    navigate('/results');
+    navigate(`/results?type=${data?.platform}&query=${data?.query}`);
   }
 
   return (
     <div className={styles.result} onClick={handleOnClick}>
       <span className={styles.profileImage}>
-        <img src="https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg" />
+        <img src={data?.image} />
       </span>
-      <span className={styles.userName}>@rastum</span>
+      <span className={styles.userName}>@{data?.query}</span>
     </div>
   )
 }
