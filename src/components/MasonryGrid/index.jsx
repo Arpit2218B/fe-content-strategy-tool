@@ -3,7 +3,7 @@ import Loader from '../Loader';
 import Reel from '../Reel';
 import styles from './styles.module.scss';
 
-const MasonryGrid = ({ data, loading, setMediaLoading, fetchData }) => {
+const MasonryGrid = ({ actualData, data, loading, setMediaLoading, fetchData }) => {
   if (loading) {
     return <Loader />
   }
@@ -13,7 +13,7 @@ const MasonryGrid = ({ data, loading, setMediaLoading, fetchData }) => {
     fetchData();
   }
 
-  if (data?.length === 0) {
+  if (actualData?.length === 0) {
     return (
       <div className={styles.refetchMedia}>
         <div>
