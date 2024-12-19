@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { SET_SUBSCRIPTION_STEP, UPDATE_RECENT_SEARCHES } from '@/store/constants';
 import { SORTER, SUBSCRIPTION_STEP } from '@/utils/constants';
 import { toast } from 'react-toastify';
-import Loader from '@/components/Loader';
 import { useMemo, useState } from 'react';
 import moment from 'moment';
 
@@ -108,7 +107,7 @@ const Results = () => {
           </div>
         </div>
         <div className={styles.posts}>
-          <MasonryGrid data={sortedData || result?.data?.media} loading={loading} fetchData={fetchData} />
+          <MasonryGrid data={sortedData || result?.data?.media} loading={mediaLoading} setMediaLoading={setMediaLoading} fetchData={fetchData} />
         </div>
       </div>
     </div>

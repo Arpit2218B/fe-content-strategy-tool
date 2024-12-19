@@ -1,8 +1,15 @@
+.refetchMedia {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
 .grid {
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Fill all available space but limit max width to 300px */
+  grid-auto-flow: row; /* Keep rows flowing naturally */
   margin-top: 1rem;
-  grid-template-rows: dense;
+  grid-auto-rows: minmax(200px, auto); /* Ensure rows grow as necessary, but stay at least 250px tall */
 }
