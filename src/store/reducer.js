@@ -40,12 +40,10 @@ export const reducer = (state=initialState, action) => {
       }
     case UPDATE_RECENT_SEARCHES:
       const recentSearches = state?.user?.recentSearches;
-      console.log(recentSearches);
       const isDuplicate = recentSearches.some(item =>
         item.platform === action.payload.platform &&
         item.query === action.payload.query
       );
-      console.log(isDuplicate);
       if (isDuplicate)
         return state;
       return {
