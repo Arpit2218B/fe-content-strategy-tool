@@ -55,19 +55,19 @@ const Reel = ({ reel }) => {
             {/* Stats Section */}
             <div className={styles.stats}>
                 <span className={styles.stat}>
-                    <HeartOutlined />
+                    <HeartOutlined style={{ fontSize: '1rem' }} />
                     <p>{formatNumber(reel?.likeCount)}</p>
                 </span>
                 <span className={styles.stat}>
-                    <PlayCircleOutlined />
+                    <PlayCircleOutlined style={{ fontSize: '1rem' }} />
                     <p>{formatNumber(reel?.playCount)}</p>
                 </span>
                 <span className={styles.stat}>
-                    <EyeOutlined />
+                    <EyeOutlined style={{ fontSize: '1rem' }} />
                     <p>{formatNumber(reel?.viewCount)}</p>
                 </span>
                 <span className={styles.stat}>
-                    <CommentOutlined />
+                    <CommentOutlined style={{ fontSize: '1rem' }} />
                     <p>{formatNumber(reel?.commentCount)}</p>
                 </span>
             </div>

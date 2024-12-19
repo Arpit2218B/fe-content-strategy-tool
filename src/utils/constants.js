@@ -25,3 +25,9 @@ export const SORTER = [
     value: 'commentCount',
   },
 ]
+
+export const MEDIA_TYPES = [
+  {value: 'reels', label: 'REELS'}, 
+  {value: 'tiktok', label: 'TIKTOK', tag: 'upcoming'},
+  {value: 'shorts', label: 'SHORTS', tag: 'upcoming'},
+]

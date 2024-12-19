@@ -6,10 +6,9 @@ import CalendarWrapper from 'components/Calendar';
 import useGetQueryHook from '@/hooks/restApiHooks/useGetQuery';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { SET_SUBSCRIPTION_STEP } from '@/store/constants';
+import { SET_SUBSCRIPTION_STEP, UPDATE_RECENT_SEARCHES } from '@/store/constants';
 import { SORTER, SUBSCRIPTION_STEP } from '@/utils/constants';
 import { toast } from 'react-toastify';
-import Loader from '@/components/Loader';
 import { useMemo, useState } from 'react';
 import moment from 'moment';
 
@@ -19,7 +18,9 @@ const Results = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [sortBy, setSortBy] = useState();
-  const [dateRnge, setDateRange] = useState([moment().subtract(90, 'd').toDate(), moment().toDate()]);
+  const [dateRange, setDateRange] = useState([
+    moment().subtract(90, 'd').startOf('day').toDate(), 
+    moment().startOf('day').toDate()]);
   const [mediaLoading, setMediaLoading] = useState(true);
 
   const {
@@ -27,8 +28,17 @@ const Results = () => {
     data: result,
     loading,
   } = useGetQueryHook(`/search${search}`, '', {
-    onSuccess: () => {
+    onSuccess: (response) => {
+      const { platform, query, profile } = response?.data || {};
       setMediaLoading(false);
+      dispatch({
+        type: UPDATE_RECENT_SEARCHES,
+        payload: {
+          image: profile?.profile_picture_url,
+          platform: platform,
+          query: query,
+        }
+      })
     },
     onError: (error) => {
       if (error.status === 402) {
@@ -47,26 +57,36 @@ const Results = () => {
 
   const sortedData = useMemo(() => {
     setMediaLoading(true);
-    const finalData = result?.data?.media?.sort((a, b) => {
-      const aValue = a[sortBy.value];
-      const bValue = b[sortBy.value];
-
-      // Handle numeric sorting
-      if (typeof aValue === 'number' && typeof bValue === 'number') {
-        return bValue - aValue; // Sort in descending order
-      }
-
-      // Handle string sorting (e.g., for caption or user names)
-      if (typeof aValue === 'string' && typeof bValue === 'string') {
-        return bValue.localeCompare(aValue); // Sort in descending order (alphabetically)
-      }
-
-      return 0;
-    });
+    console.log(result?.data?.media);
+    let finalData = result?.data?.media?.filter((item) => {
+      const mediaTime = moment(item?.timeStamp);
+      const startTime = moment(dateRange[0]);
+      const endTime = moment(dateRange[1]);
+      return mediaTime.isBetween(startTime, endTime);
+    })
+    if (sortBy) {
+      finalData = finalData.sort((a, b) => {
+        const aValue = a[sortBy?.value];
+        const bValue = b[sortBy?.value];
+        
+        // Handle numeric sorting
+        if (typeof aValue === 'number' && typeof bValue === 'number') {
+          return bValue - aValue; // Sort in descending order
+        }
+        
+        // Handle string sorting (e.g., for caption or user names)
+        if (typeof aValue === 'string' && typeof bValue === 'string') {
+          return bValue.localeCompare(aValue); // Sort in descending order (alphabetically)
+        }
+        
+        return 0;
+      });
+    }
 
     setMediaLoading(false);
+    console.log(finalData);
     return finalData;
-  }, [sortBy?.value])
+  }, [sortBy?.value, dateRange.join(',')]);
 
   return (
     <div className={styles.container}>
@@ -95,11 +115,11 @@ const Results = () => {
             />
           </div>
           <div className={styles.calendar}>
-            <CalendarWrapper />
+            <CalendarWrapper onChange={setDateRange} />
           </div>
         </div>
         <div className={styles.posts}>
-          <MasonryGrid data={sortedData || result?.data?.media} loading={loading} fetchData={fetchData} />
+          <MasonryGrid actualData={result?.data?.media} data={sortedData || result?.data?.media} loading={mediaLoading} setMediaLoading={setMediaLoading} fetchData={fetchData} />
         </div>
       </div>
     </div>

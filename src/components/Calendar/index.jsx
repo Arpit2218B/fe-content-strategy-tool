@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 import moment from 'moment';
 
 const CalendarWrapper = ({ options={}, onChange }) => {
-  const [value, setValue] = useState([moment().subtract(90, 'd').toDate(), moment().toDate()]);
+  const [value, setValue] = useState([moment().subtract(90, 'd').startOf('day').toDate(), moment().startOf('day').toDate()]);
   const [calendarVissibility, toggleCalendarVisibility] = useState(false);
 
   const handleSelect = (value) => {

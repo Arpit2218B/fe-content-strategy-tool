@@ -28,8 +28,8 @@ const Select = ({ options=[], onChange, value, placeholder }) => {
           <div className={styles.options}>
             {
               options.map(o => (
-                <div key={o.value} className={styles.option} onClick={() => handleSelect(o)}>
-                  {o.label} {selectedOption.value === o.value && <CheckOutlined />}
+                <div key={o.value} className={o.tag ? styles.disabled : styles.option} onClick={o.tag ? null : () => handleSelect(o)}>
+                  {o.label}{o.tag && <span className={styles.tag}>{o.tag}</span>} {selectedOption.value === o.value && <CheckOutlined />}
                 </div>
               ))
             }
