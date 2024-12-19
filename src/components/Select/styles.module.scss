@@ -40,6 +40,33 @@
       &:hover {
         background-color: #F3F3F4;
       }
+
+      .tag {
+        font-size: 0.5rem;
+        background-color: #c94b4b;
+        color: white;
+        padding: 0.2rem 0.5rem;
+        border-radius: 1rem;
+      }
+    }
+
+    .disabled {
+      padding: 0.7rem;
+      margin: 0.4rem;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: no-drop;
+      opacity: 0.6;
+
+      .tag {
+        font-size: 0.5rem;
+        background-color: #c94b4b;
+        color: white;
+        padding: 0.2rem 0.5rem;
+        border-radius: 1rem;
+      }
     }
   }
 }

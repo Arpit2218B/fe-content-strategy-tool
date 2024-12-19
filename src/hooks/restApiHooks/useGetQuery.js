@@ -37,7 +37,7 @@ export const useGetQueryHook = (
                 params: queryParams, 
             });
             updateData(response?.data);
-            typeof onSuccess === 'function' && onSuccess();
+            typeof onSuccess === 'function' && onSuccess(response?.data);
         } catch(err) {
             if(typeof onError === 'function')
                 onError(err);

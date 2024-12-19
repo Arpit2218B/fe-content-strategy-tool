@@ -6,7 +6,7 @@ import CalendarWrapper from 'components/Calendar';
 import useGetQueryHook from '@/hooks/restApiHooks/useGetQuery';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { SET_SUBSCRIPTION_STEP } from '@/store/constants';
+import { SET_SUBSCRIPTION_STEP, UPDATE_RECENT_SEARCHES } from '@/store/constants';
 import { SORTER, SUBSCRIPTION_STEP } from '@/utils/constants';
 import { toast } from 'react-toastify';
 import Loader from '@/components/Loader';
@@ -27,8 +27,17 @@ const Results = () => {
     data: result,
     loading,
   } = useGetQueryHook(`/search${search}`, '', {
-    onSuccess: () => {
+    onSuccess: (response) => {
+      const { platform, query, profile } = response?.data || {};
       setMediaLoading(false);
+      dispatch({
+        type: UPDATE_RECENT_SEARCHES,
+        payload: {
+          image: profile?.profile_picture_url,
+          platform: platform,
+          query: query,
+        }
+      })
     },
     onError: (error) => {
       if (error.status === 402) {

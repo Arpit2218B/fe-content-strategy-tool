@@ -1,4 +1,4 @@
-import { SET_SUBSCRIPTION_DATA, SET_SUBSCRIPTION_STEP, SET_USER_DATA } from "./constants";
+import { SET_SUBSCRIPTION_DATA, SET_SUBSCRIPTION_STEP, SET_USER_DATA, UPDATE_RECENT_SEARCHES } from "./constants";
 import { SUBSCRIPTION_STEP } from "@/utils/constants";
 
 const initialState = {
@@ -37,6 +37,26 @@ export const reducer = (state=initialState, action) => {
       return {
         ...state,
         user: action.payload,
+      }
+    case UPDATE_RECENT_SEARCHES:
+      const recentSearches = state?.user?.recentSearches;
+      console.log(recentSearches);
+      const isDuplicate = recentSearches.some(item =>
+        item.platform === action.payload.platform &&
+        item.query === action.payload.query
+      );
+      console.log(isDuplicate);
+      if (isDuplicate)
+        return state;
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          recentSearches: [
+            ...state?.user?.recentSearches,
+            action.payload,
+          ]
+        }
       }
     default:
       return state;

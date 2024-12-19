@@ -3,9 +3,9 @@ import styles from './styles.module.scss';
 import { CloseCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import Select from 'components/Select';
 import { useState } from 'react';
-import useGetQueryHook from '@/hooks/restApiHooks/useGetQuery';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { MEDIA_TYPES } from '@/utils/constants';
 
 const Search = () => {
   const navigate = useNavigate();
@@ -37,9 +37,9 @@ const Search = () => {
           </div>
           <div className={styles.select}>
             <Select 
-              options={[{value: 'reels', label: 'REELS'}, {value: 'tiktok', label: 'TIKTOK'}]} 
+              options={MEDIA_TYPES} 
               onChange={setPlatFormType} 
-              defaultValue={{value: 'reels', label: 'REELS'}}
+              value={{value: 'reels', label: 'REELS'}}
             />
           </div>
         </div>
